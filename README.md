@@ -4,6 +4,7 @@
 > Evaluates software architecture diagrams using Gemini Vision, orchestrates real-time multi-agent jury debates, and benchmarks engineer defenses with automated Mermaid.js remediation.
 
 ---
+________
 
 ## 🌟 Key Features
 
