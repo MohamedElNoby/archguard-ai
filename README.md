@@ -48,3 +48,17 @@ cp .env.example .env
 # Set your GEMINI_API_KEY in .env
 
 uvicorn app.main:app --reload --port 8000
+
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+
+```
+Open `http://localhost:5173` in your browser.
+
+---
+
+## 📄 License
+MIT License. Created for the GenAI Hackathon 2026.
