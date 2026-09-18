@@ -11,7 +11,7 @@
 - **Automated Risk Discovery:** Uncovers single points of failure (SPOF), cascading failures, sync chaining, and insecure edge relays.
 - **Adversarial Multi-Agent Jury:** Real-time debate simulating three specialized engineering perspectives:
   - **CyberSec:** Attack surface, blast radius, encryption, and zero-trust segmentation.
-  - **SRE:** Availability calculations ($A_{total} = \prod A_i$), error budgets, retries, and cascading stalls.
+  - **SRE:** Availability impacts, error budgets, retries, and cascading stalls.
   - **FinOps:** Idle resource lockups, auto-scaling thrashing, and unthrottled bandwidth costs.
 - **Interactive Defense Arena:** Allows engineers to submit targeted architectural refactorings within strict constraints.
 - **Dynamic Scoring & Mermaid Remediation:** Evaluates defenses across a 5-pillar rubric and dynamically outputs a clean, interactive Mermaid flowchart representing the resilient topology.
