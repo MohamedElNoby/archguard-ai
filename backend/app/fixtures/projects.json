@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Smart Hospital Management System",
+    "description": "A graduation project managing patient records, appointments, billing, and IoT-connected medical devices across multiple hospital branches.",
+    "diagram_path": "mock/hospital-architecture.png",
+    "status": "completed"
+  },
+  {
+    "name": "E-Commerce System",
+    "description": "A multi-vendor e-commerce platform with product catalog, cart, checkout, payments, and order fulfillment microservices.",
+    "diagram_path": "mock/ecommerce-architecture.png",
+    "status": "completed"
+  },
+  {
+    "name": "University Management System",
+    "description": "A campus-wide system handling student enrollment, course registration, grading, and faculty management.",
+    "diagram_path": "mock/university-architecture.png",
+    "status": "completed"
+  }
+]

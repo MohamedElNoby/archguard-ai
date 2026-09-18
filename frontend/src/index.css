@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* ── Arabic font (loaded from Google Fonts via @font-face would require a CDN
+      request; we use the system Arabic stack instead, which is zero-cost and
+      renders correctly on all platforms) ── */
+:root {
+  --font-latin:  'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-arabic: 'Segoe UI', 'Cairo', 'Noto Sans Arabic', 'Arial', sans-serif;
+}
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: #0a0e1a;
+  color: #e2e8f0;
+  font-family: var(--font-latin);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Arabic — apply Arabic font stack + slightly larger line-height */
+:lang(ar) body,
+[dir="rtl"] body,
+[dir="rtl"] {
+  font-family: var(--font-arabic);
+  line-height: 1.75;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: #0f1629; }
+::-webkit-scrollbar-thumb  { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* ── Typing animation ── */
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: translateY(0);   opacity: 0.4; }
+  40%            { transform: translateY(-6px); opacity: 1;   }
+}
+
+.typing-dot {
+  animation: bounce-dot 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── Fade-in for new messages ── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+.msg-enter { animation: fadeSlideIn 0.25s ease-out forwards; }
+
+/* ── Mermaid container ── */
+.mermaid-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.mermaid-scroll svg { display: block; margin: 0 auto; max-width: none; }
+
+/* ── Score ring ── */
+.score-ring { transition: stroke-dashoffset 0.8s ease-out; }
+
+/* ── RTL logical-property helpers
+      Tailwind v4 uses logical properties (ms-/me-/ps-/pe-) which
+      automatically flip in RTL, so most layout is handled for free.
+      These extras cover places where we use directional classes. ── */
+[dir="rtl"] .stepper-connector {
+  /* connectors between steps flip naturally via flex-row */
+}
+
+/* Ensure lucide icons don't flip in RTL (they are neutral glyphs) */
+[dir="rtl"] svg.lucide {
+  /* no flip needed — icons remain LTR */
+}
+
+/* Fix: in RTL, the ChevronRight icon should visually point left */
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}

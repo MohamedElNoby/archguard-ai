@@ -1,0 +1,122 @@
+[
+  {
+    "project_name": "Smart Hospital Management System",
+    "provider": "mock",
+    "model": "mock-fixture-v1",
+    "risks": [
+      {
+        "title": "Unencrypted Patient Data at Rest",
+        "category": "CyberSecurity",
+        "severity": "CRITICAL",
+        "description": "Patient health records stored in PostgreSQL do not appear to use column-level or disk-level encryption.",
+        "evidence": "No encryption layer present between Billing/Appointment services and PostgreSQL in the diagram.",
+        "recommendation": "Enable encryption at rest (e.g. TDE or disk encryption) and encrypt sensitive PII/PHI columns.",
+        "agent": "CyberSecurity"
+      },
+      {
+        "title": "Single Point of Failure in API Gateway",
+        "category": "SRE",
+        "severity": "HIGH",
+        "description": "A single API Gateway instance handles all traffic from both patient and doctor clients.",
+        "evidence": "Only one API Gateway node shown in the architecture diagram with no redundancy.",
+        "recommendation": "Deploy multiple API Gateway replicas behind a load balancer with health checks.",
+        "agent": "SRE"
+      },
+      {
+        "title": "Unbounded Message Queue Growth",
+        "category": "SRE",
+        "severity": "MEDIUM",
+        "description": "IoT Device Gateway publishes to RabbitMQ without visible backpressure or dead-letter handling.",
+        "evidence": "No dead-letter queue or consumer scaling policy indicated.",
+        "recommendation": "Add dead-letter queues, consumer auto-scaling, and message TTLs to prevent unbounded growth.",
+        "agent": "SRE"
+      },
+      {
+        "title": "No Cost Controls on IoT Ingestion",
+        "category": "FinOps",
+        "severity": "MEDIUM",
+        "description": "High-frequency IoT device data ingestion could cause unpredictable infrastructure costs at scale.",
+        "evidence": "IoT Device Gateway connects directly to the message queue with no rate limiting or batching visible.",
+        "recommendation": "Implement request batching, sampling, or tiered ingestion pricing alerts to control costs.",
+        "agent": "FinOps"
+      }
+    ]
+  },
+  {
+    "project_name": "E-Commerce System",
+    "provider": "mock",
+    "model": "mock-fixture-v1",
+    "risks": [
+      {
+        "title": "Payment Service Directly Reachable Without Isolation",
+        "category": "CyberSecurity",
+        "severity": "CRITICAL",
+        "description": "The Payment Service communicates with a third-party payment provider without an indicated network segmentation boundary.",
+        "evidence": "Payment Service is on the same network tier as Order Service with no firewall/VPC boundary shown.",
+        "recommendation": "Isolate the Payment Service in a dedicated PCI-DSS-compliant network segment with strict egress rules.",
+        "agent": "CyberSecurity"
+      },
+      {
+        "title": "Cache Invalidation Risk on Cart Service",
+        "category": "SRE",
+        "severity": "MEDIUM",
+        "description": "Cart Service relies on Redis Cache without a clear invalidation or persistence strategy shown.",
+        "evidence": "Cart Service -> Redis Cache route has no corresponding database write path in the diagram.",
+        "recommendation": "Add a write-through or write-behind strategy so cart data survives cache eviction/restarts.",
+        "agent": "SRE"
+      },
+      {
+        "title": "Elasticsearch Cluster Cost Growth",
+        "category": "FinOps",
+        "severity": "LOW",
+        "description": "Product Catalog Service depends on Elasticsearch, which can become costly at scale if not right-sized.",
+        "evidence": "No indication of index lifecycle management or node auto-scaling policies.",
+        "recommendation": "Set up index lifecycle management (ILM) and monitor node utilization to right-size the cluster.",
+        "agent": "FinOps"
+      },
+      {
+        "title": "No Rate Limiting on Public API Gateway",
+        "category": "CyberSecurity",
+        "severity": "HIGH",
+        "description": "The API Gateway accepts traffic from both the web frontend and mobile app with no visible rate limiting.",
+        "evidence": "Both Web Frontend and Mobile App connect directly to the API Gateway with a single unguarded entry point.",
+        "recommendation": "Apply per-client rate limiting and WAF rules at the API Gateway layer.",
+        "agent": "CyberSecurity"
+      }
+    ]
+  },
+  {
+    "project_name": "University Management System",
+    "provider": "mock",
+    "model": "mock-fixture-v1",
+    "risks": [
+      {
+        "title": "Single FastAPI Backend Instance",
+        "category": "SRE",
+        "severity": "HIGH",
+        "description": "All three portals (student, faculty, admin) route through what appears to be a single FastAPI backend with no redundancy.",
+        "evidence": "Only one 'FastAPI Backend' node is present in the architecture diagram.",
+        "recommendation": "Run multiple backend instances behind a load balancer, and add readiness/liveness probes.",
+        "agent": "SRE"
+      },
+      {
+        "title": "Admin Dashboard Shares Same Backend as Student Portal",
+        "category": "CyberSecurity",
+        "severity": "MEDIUM",
+        "description": "The Admin Dashboard uses the same FastAPI Backend and routes as the student-facing portal without a clear privilege boundary.",
+        "evidence": "Admin Dashboard -> FastAPI Backend uses the same route as Student Portal -> FastAPI Backend.",
+        "recommendation": "Separate admin routes with stricter authentication (MFA) and role-based access control.",
+        "agent": "CyberSecurity"
+      },
+      {
+        "title": "Unmanaged File Storage Growth",
+        "category": "FinOps",
+        "severity": "LOW",
+        "description": "File Storage for student/faculty uploads has no visible lifecycle or archival policy.",
+        "evidence": "FastAPI Backend -> File Storage route has no accompanying retention policy documentation.",
+        "recommendation": "Add storage lifecycle rules (e.g. move old files to cold storage) to control long-term costs.",
+        "agent": "FinOps"
+      }
+    ]
+  }
+]

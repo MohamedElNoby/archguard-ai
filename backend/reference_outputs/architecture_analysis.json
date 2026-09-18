@@ -1,0 +1,170 @@
+{
+    "architecture": {
+        "components": [
+            {
+                "name": "Client Apps",
+                "type": "Client"
+            },
+            {
+                "name": "API Gateway",
+                "type": "API Gateway"
+            },
+            {
+                "name": "Authentitation Service",
+                "type": "Microservice"
+            },
+            {
+                "name": "User Service",
+                "type": "Microservice"
+            },
+            {
+                "name": "Product Service",
+                "type": "Microservice"
+            },
+            {
+                "name": "Order Service",
+                "type": "Microservice"
+            },
+            {
+                "name": "Payment Service",
+                "type": "Microservice"
+            },
+            {
+                "name": "PostgreSQL Database",
+                "type": "Database"
+            },
+            {
+                "name": "Redis Cache",
+                "type": "Cache"
+            },
+            {
+                "name": "Object Storage",
+                "type": "Cloud Storage"
+            },
+            {
+                "name": "Observability",
+                "type": "Monitoring System"
+            }
+        ],
+        "connections": [
+            {
+                "source": "Client Apps",
+                "target": "API Gateway",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "API Gateway",
+                "target": "Authentitation Service",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "Authentitation Service",
+                "target": "API Gateway",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "Authentitation Service",
+                "target": "User Service",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "Authentitation Service",
+                "target": "Payment Service",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "User Service",
+                "target": "Product Service",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "Product Service",
+                "target": "Order Service",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "Order Service",
+                "target": "Payment Service",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "User Service",
+                "target": "PostgreSQL Database",
+                "protocol": "TCP"
+            },
+            {
+                "source": "Product Service",
+                "target": "PostgreSQL Database",
+                "protocol": "TCP"
+            },
+            {
+                "source": "Order Service",
+                "target": "PostgreSQL Database",
+                "protocol": "TCP"
+            },
+            {
+                "source": "Payment Service",
+                "target": "PostgreSQL Database",
+                "protocol": "TCP"
+            },
+            {
+                "source": "Product Service",
+                "target": "Redis Cache",
+                "protocol": "TCP"
+            },
+            {
+                "source": "Payment Service",
+                "target": "Object Storage",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "Redis Cache",
+                "target": "Object Storage",
+                "protocol": "HTTP/REST"
+            },
+            {
+                "source": "PostgreSQL Database",
+                "target": "Observability",
+                "protocol": "Other"
+            },
+            {
+                "source": "Redis Cache",
+                "target": "Observability",
+                "protocol": "Other"
+            }
+        ],
+        "data_flow": "Client applications send requests to the API Gateway, which delegates authentication to the Authentication Service before routing to backend microservices (User, Product, Order, Payment) that process requests via synchronous call chains and interact with a central PostgreSQL Database, Redis Cache, and Object Storage while exporting logs, metrics, and traces to an Observability component.",
+        "database_types": [
+            {
+                "name": "PostgreSQL Database",
+                "type": "Relational"
+            },
+            {
+                "name": "Redis Cache",
+                "type": "In-Memory"
+            }
+        ],
+        "risks": [
+            {
+                "level": "CRITICAL",
+                "title": "Cascading Failure via Synchronous Microservice Chaining",
+                "description": "User Service, Product Service, Order Service, and Payment Service are connected sequentially in a chain. A failure or latency spike in any upstream service will block and fail the entire transaction process."
+            },
+            {
+                "level": "HIGH",
+                "title": "Shared Central Database Anti-Pattern",
+                "description": "All microservices share a single PostgreSQL Database instance. This creates tight schema coupling, noisy-neighbor performance bottlenecks, and violates the microservice encapsulation principle."
+            },
+            {
+                "level": "MEDIUM",
+                "title": "Single Point of Failure at API Gateway & Authentication Service",
+                "description": "All incoming traffic depends strictly on the API Gateway and central Authentication Service without depicted async fallback or queuing mechanisms, creating a critical architectural bottleneck."
+            }
+        ]
+    },
+    "primary_risk": {
+        "level": "CRITICAL",
+        "title": "Cascading Failure via Synchronous Microservice Chaining",
+        "description": "User Service, Product Service, Order Service, and Payment Service are connected sequentially in a chain. A failure or latency spike in any upstream service will block and fail the entire transaction process."
+    }
+}

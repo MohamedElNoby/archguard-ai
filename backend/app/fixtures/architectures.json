@@ -1,0 +1,101 @@
+[
+  {
+    "project_name": "Smart Hospital Management System",
+    "provider": "mock",
+    "model": "mock-fixture-v1",
+    "architecture": {
+      "components": [
+        "Patient Mobile App",
+        "Doctor Web Portal",
+        "API Gateway",
+        "Appointment Service",
+        "Billing Service",
+        "IoT Device Gateway",
+        "PostgreSQL",
+        "Redis Cache",
+        "Message Queue (RabbitMQ)",
+        "Notification Service"
+      ],
+      "routes": [
+        ["Patient Mobile App", "API Gateway"],
+        ["Doctor Web Portal", "API Gateway"],
+        ["API Gateway", "Appointment Service"],
+        ["API Gateway", "Billing Service"],
+        ["Appointment Service", "PostgreSQL"],
+        ["Billing Service", "PostgreSQL"],
+        ["Appointment Service", "Redis Cache"],
+        ["IoT Device Gateway", "Message Queue (RabbitMQ)"],
+        ["Message Queue (RabbitMQ)", "Notification Service"],
+        ["Notification Service", "Patient Mobile App"]
+      ]
+    },
+    "raw_analysis": {
+      "note": "Mock fixture generated for hackathon frontend development before Gemini integration is complete."
+    }
+  },
+  {
+    "project_name": "E-Commerce System",
+    "provider": "mock",
+    "model": "mock-fixture-v1",
+    "architecture": {
+      "components": [
+        "Web Frontend (React)",
+        "Mobile App",
+        "API Gateway",
+        "Product Catalog Service",
+        "Cart Service",
+        "Order Service",
+        "Payment Service",
+        "PostgreSQL",
+        "Redis Cache",
+        "Elasticsearch",
+        "Third-Party Payment Provider"
+      ],
+      "routes": [
+        ["Web Frontend (React)", "API Gateway"],
+        ["Mobile App", "API Gateway"],
+        ["API Gateway", "Product Catalog Service"],
+        ["API Gateway", "Cart Service"],
+        ["API Gateway", "Order Service"],
+        ["Order Service", "Payment Service"],
+        ["Payment Service", "Third-Party Payment Provider"],
+        ["Product Catalog Service", "Elasticsearch"],
+        ["Cart Service", "Redis Cache"],
+        ["Order Service", "PostgreSQL"]
+      ]
+    },
+    "raw_analysis": {
+      "note": "Mock fixture generated for hackathon frontend development before Gemini integration is complete."
+    }
+  },
+  {
+    "project_name": "University Management System",
+    "provider": "mock",
+    "model": "mock-fixture-v1",
+    "architecture": {
+      "components": [
+        "Student Portal",
+        "Faculty Portal",
+        "Admin Dashboard",
+        "FastAPI Backend",
+        "Enrollment Service",
+        "Grading Service",
+        "PostgreSQL",
+        "File Storage (S3-compatible)"
+      ],
+      "routes": [
+        ["Student Portal", "FastAPI Backend"],
+        ["Faculty Portal", "FastAPI Backend"],
+        ["Admin Dashboard", "FastAPI Backend"],
+        ["FastAPI Backend", "Enrollment Service"],
+        ["FastAPI Backend", "Grading Service"],
+        ["Enrollment Service", "PostgreSQL"],
+        ["Grading Service", "PostgreSQL"],
+        ["FastAPI Backend", "File Storage (S3-compatible)"]
+      ]
+    },
+    "raw_analysis": {
+      "note": "Mock fixture generated for hackathon frontend development before Gemini integration is complete."
+    }
+  }
+]
